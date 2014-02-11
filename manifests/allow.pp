@@ -1,5 +1,5 @@
 define tcpwrappers::allow($ensure = present,
-                          $daemon,
+                          $daemon = $name,
                           $client,
                           $except = undef) {
 	tcpwrappers::entry { $name:

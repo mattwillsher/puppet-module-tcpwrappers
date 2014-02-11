@@ -1,4 +1,11 @@
-class tcpwrappers {
+class tcpwrappers (
+	$allow = {},
+	$deny  = {}
+) {
+
+	validate_hash($allow)
+	validate_hash($deny)
+
 	# Fix permissions and ownership on deny file
 	file { "/etc/hosts.deny":
 		owner => root,
@@ -11,4 +18,7 @@ class tcpwrappers {
 		daemon => "ALL",
 		client => "ALL";
 	}
+
+	create_resources('tcpwrappers::allow',$allow)
+	create_resources('tcpwrappers::deny',$deny)
 }
